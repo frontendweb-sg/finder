@@ -49,6 +49,8 @@ type Company {
     active: Boolean
     """Company created date"""
     createdAt: String
+    """jobs"""
+    jobs:[Job!]
 }
 
 

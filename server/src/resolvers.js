@@ -1,5 +1,5 @@
 import { getCompanies, addNewCompany, deleteCompanyById, getCompanyById, updateCompanyById } from "./controllers/company.controller.js";
-import { addJob, deleteJob, getJob, getJobs, updateJob } from "./controllers/job.controller.js";
+import { addJob, deleteJob, getJob, getJobs, getJobsByCompany, updateJob } from "./controllers/job.controller.js";
 
 export const resolvers = {
     Query: {
@@ -10,6 +10,9 @@ export const resolvers = {
     },
     Job: {
         company: async (parent) => await getCompanyById(parent.company),
+    },
+    Company: {
+        jobs: async (company) => await getJobsByCompany(company.id)
     },
     Mutation: {
         createJob: async (_, args) => await addJob(args.job),

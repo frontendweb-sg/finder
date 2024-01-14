@@ -77,3 +77,13 @@ export const deleteJob = async (id) => {
 
     }
 }
+
+
+export const getJobsByCompany = async (id) => {
+    try {
+        const jobs = await Job.find({ company: id });
+        return jobs;
+    } catch (error) {
+
+    }
+}
