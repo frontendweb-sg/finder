@@ -9,8 +9,9 @@ import { readFile } from 'node:fs/promises';
 import { resolvers } from './resolvers.js'
 
 // app
+
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 9000; //process.env.PORT;
 app.use(cors(), express.json());
 
 // graphql schema
@@ -25,6 +26,6 @@ app.use('/graphql', apolloMiddleware(server));
 // listen
 app.listen(PORT, async () => {
     await connectDb();
-    console.log(`Server is running on 4000`);
+    console.log(`Server is running on ${PORT}`);
 });
 

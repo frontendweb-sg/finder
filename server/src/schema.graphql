@@ -1,3 +1,11 @@
 type Query{
-    helloWorld: String
+    job: Job
+    jobs: [Job!]
+}
+
+type Job{
+    id:ID!
+    title: String!
+    description: String
+    createdAt: String
 }
