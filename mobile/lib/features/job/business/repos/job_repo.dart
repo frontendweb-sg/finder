@@ -8,7 +8,7 @@ import 'package:mobile/core/typedef/typedef.dart';
 abstract class JobRepo {
   ResultType<List<JobEntity>> getJobs(QueryOptions options);
   ResultType<JobEntity> getJob(String id);
-  ResultType<JobEntity> createJob(JobEntity job);
+  ResultType<JobEntity> createJob(MutationOptions options);
   ResultType<JobEntity> updateJob(String id, JobEntity job);
-  ResultType<JobEntity> deleteJob(String id);
+  ResultType<JobEntity> deleteJob(MutationOptions options);
 }

@@ -12,15 +12,23 @@ class JobRepoImp extends JobRepo {
   JobRepoImp(this._jobRemoteDatasource);
 
   @override
-  ResultType<JobEntity> createJob(JobEntity job) {
-    // TODO: implement createJob
-    throw UnimplementedError();
+  ResultType<JobEntity> createJob(MutationOptions options) async {
+    try {
+      final response = await _jobRemoteDatasource.createJob(options);
+      return Right(response);
+    } on GraphQLError catch (error) {
+      return Left(Failure(message: error.message, statusCode: 200));
+    }
   }
 
   @override
-  ResultType<JobEntity> deleteJob(String id) {
-    // TODO: implement deleteJob
-    throw UnimplementedError();
+  ResultType<JobEntity> deleteJob(MutationOptions options) async {
+    try {
+      final response = await _jobRemoteDatasource.deleteJob(options);
+      return Right(response);
+    } on GraphQLError catch (error) {
+      return Left(Failure(message: error.message, statusCode: 200));
+    }
   }
 
   @override

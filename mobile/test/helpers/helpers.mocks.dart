@@ -81,18 +81,18 @@ class MockJobRepo extends _i1.Mock implements _i3.JobRepo {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> createJob(
-          _i6.JobEntity? job) =>
+          _i7.MutationOptions<Object?>? options) =>
       (super.noSuchMethod(
         Invocation.method(
           #createJob,
-          [job],
+          [options],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
             _FakeEither_0<_i5.Failure, _i6.JobEntity>(
           this,
           Invocation.method(
             #createJob,
-            [job],
+            [options],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
@@ -124,18 +124,19 @@ class MockJobRepo extends _i1.Mock implements _i3.JobRepo {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> deleteJob(String? id) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> deleteJob(
+          _i7.MutationOptions<Object?>? options) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteJob,
-          [id],
+          [options],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
             _FakeEither_0<_i5.Failure, _i6.JobEntity>(
           this,
           Invocation.method(
             #deleteJob,
-            [id],
+            [options],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);

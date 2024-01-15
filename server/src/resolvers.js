@@ -1,6 +1,6 @@
 import { getCompanies, addNewCompany, deleteCompanyById, getCompanyById, updateCompanyById } from "./controllers/company.controller.js";
 import { addJob, deleteJob, getJob, getJobs, getJobsByCompany, updateJob } from "./controllers/job.controller.js";
-
+import formate from 'date-format';
 export const resolvers = {
     Query: {
         job: async (_, args) => await getJob(args.jobId),
@@ -10,6 +10,7 @@ export const resolvers = {
     },
     Job: {
         company: async (parent) => await getCompanyById(parent.company),
+        createdAt: (parent) => formate("MM-dd-yyyy", parent.createdAt),
     },
     Company: {
         jobs: async (company) => await getJobsByCompany(company.id)

@@ -6,6 +6,7 @@ part 'job_model.g.dart';
 @JsonSerializable()
 class JobModel extends JobEntity {
   const JobModel({
+    super.id,
     super.title,
     super.description,
     super.company,

@@ -62,7 +62,7 @@ input inputJob{
     """Enter creaation date"""
     createdAt: String
     """Enter company id"""
-    company: ID!
+    company: ID
 }
  
 input inputCompany{
