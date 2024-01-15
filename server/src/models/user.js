@@ -5,12 +5,14 @@ export const USER_TABLE = "USER";
 
 const schema = new Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     emailVerified: { type: Boolean, default: false },
     accessToken: { type: String, default: "" },
     active: { type: Boolean, default: true },
-    role: { type: String, default: "user", enum: ["user", "company", "admin"] }
+    role: { type: String, default: "user", enum: ["user", "company", "admin"] },
+    mobile: { type: String, required: true, unique: true },
+    jobs: { type: [Schema.ObjectId], default: [] }
 }, {
     toJSON: {
         transform(doc, ret) {

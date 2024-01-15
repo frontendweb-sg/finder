@@ -7,6 +7,8 @@ import { ApolloServer } from '@apollo/server';
 import { connectDb } from './db/db.js';
 import { readFile } from 'node:fs/promises';
 import { resolvers } from './resolvers.js'
+import { errorHandler } from './middleware/error-handler.js';
+import { userRoute } from './routes/user.js';
 
 // app
 
@@ -18,10 +20,19 @@ app.use(cors(), express.json());
 const fileUrl = new URL("./schema.graphql", import.meta.url);
 const typeDefs = await readFile(fileUrl, "utf8");
 
+// auth
+app.use("/api/auth", userRoute);
+
+
 // apollo server
 const server = new ApolloServer({ typeDefs, resolvers });
 await server.start();
 app.use('/graphql', apolloMiddleware(server));
+
+
+
+// error handler
+app.use(errorHandler);
 
 // listen
 app.listen(PORT, async () => {
