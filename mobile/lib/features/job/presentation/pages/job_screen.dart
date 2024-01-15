@@ -56,7 +56,7 @@ class _JobScreenState extends ConsumerState<JobScreen> {
     final data = ref.watch(jobProvider);
     return Scaffold(
       body: data.whenOrNull(
-        data: (data) => data == null && data!.isEmpty
+        data: (data) => data!.isEmpty
             ? noData()
             : ListView.separated(
                 separatorBuilder: (context, index) => const Divider(
