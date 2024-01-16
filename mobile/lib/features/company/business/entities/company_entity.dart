@@ -5,7 +5,7 @@ class CompanyEntity extends Equatable {
   final String? name;
   final String? description;
   final bool? active;
-  final DateTime? createdAt;
+  final String? createdAt;
   final List<JobEntity>? jobs;
 
   const CompanyEntity({

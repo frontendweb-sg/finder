@@ -118,6 +118,7 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
                   TextFormField(
                     controller: _createdAt,
                     onTap: () async {
+                      FocusManager.instance.primaryFocus!.unfocus();
                       DateTime? date = await showDatePicker(
                         context: context,
                         firstDate: DateTime(DateTime.now().year),

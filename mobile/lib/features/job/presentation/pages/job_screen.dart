@@ -17,7 +17,11 @@ class JobScreen extends ConsumerStatefulWidget {
 }
 
 class _JobScreenState extends ConsumerState<JobScreen> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   void _getJobs() async {
+    print("Call");
     await ref.read(jobProvider.notifier).getJobs(
           QueryOptions(
             document: gql(JobQuery().queryDoc),
@@ -55,22 +59,37 @@ class _JobScreenState extends ConsumerState<JobScreen> {
   Widget build(BuildContext context) {
     final data = ref.watch(jobProvider);
     return Scaffold(
-      body: data.whenOrNull(
-        data: (data) => data!.isEmpty
-            ? noData()
-            : ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  color: Color.fromRGBO(0, 0, 0, 0.05),
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        strokeWidth: 4.0,
+        onRefresh: () {
+          return Future<void>.delayed(const Duration(seconds: 3), () {
+            ref.invalidate(jobProvider);
+            ref.refresh(jobProvider).copyWithPrevious(data, isRefresh: true);
+            //  _getJobs();
+          });
+        },
+        child: data.whenOrNull(
+          data: (data) => data!.isEmpty
+              ? noData()
+              : ListView.separated(
+                  separatorBuilder: (context, index) => const Divider(
+                    color: Color.fromRGBO(0, 0, 0, 0.05),
+                  ),
+                  itemCount: data.length,
+                  itemBuilder: (itemBuilder, index) => jobCard(
+                    context,
+                    entity: data[index],
+                    onDelete: _deleteJob,
+                  ),
                 ),
-                itemCount: data.length,
-                itemBuilder: (itemBuilder, index) => jobCard(
-                  context,
-                  entity: data[index],
-                  onDelete: _deleteJob,
-                ),
-              ),
-        loading: () => const CircularProgressIndicator(),
-        error: (error, stackTrace) => const Text('something went wrong!'),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => const Text('something went wrong!'),
+        )!,
       ),
     );
   }

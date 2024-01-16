@@ -12,7 +12,6 @@ import 'package:mobile/shared/providers/graphql.dart';
 
 class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
   final JobRepo _jobRepo;
-
   JobNotifier(this._jobRepo) : super(const AsyncValue.data([]));
 
   ///
@@ -30,6 +29,10 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
         (l) => AsyncValue.error(l, StackTrace.current),
         (r) => AsyncValue.data(r),
       );
+
+      //ref.invalidateSelf();
+      print('refresed ${state.value!.length}');
+      // state.copyWithPrevious(state, isRefresh: true);
     } on Failure catch (error) {
       // catch error
       state = AsyncError(error, StackTrace.current);
@@ -43,7 +46,14 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
       final response = await CreateJobUseCase(_jobRepo).call(params: option);
       state = response.fold(
         (l) => AsyncValue.error(l, StackTrace.current),
-        (r) => state.whenData((value) => [...value!, r]),
+        (r) {
+          return state.maybeWhen(
+            orElse: () => state,
+            data: (data) => AsyncValue.data([...data!, r]),
+            loading: () => const AsyncValue.loading(),
+          );
+          //return state.whenData((value) => [...value!, r]);
+        },
       );
       //  state.copyWithPrevious(state, isRefresh: true);
     } on Failure catch (error) {
@@ -57,9 +67,15 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
       final response = await DeleteJobUseCase(_jobRepo).call(params: option);
       state = response.fold(
         (l) => AsyncValue.error(l, StackTrace.current),
-        (r) => state.whenData((value) {
-          return value!.where((element) => element.id != r.id).toList();
-        }),
+        (r) {
+          return state.maybeWhen(
+            orElse: () => state,
+            data: (data) => AsyncValue.data(
+              data!.where((element) => element.id != r.id).toList(),
+            ),
+          );
+          //return AsyncValue.data(data);
+        },
       );
       //  state.copyWithPrevious(state, isRefresh: true);
     } on Failure catch (error) {
@@ -90,11 +106,7 @@ final jobRepoProvider = Provider<JobRepo>(
 /// Job provider
 final jobProvider =
     StateNotifierProvider<JobNotifier, AsyncValue<List<JobEntity>?>>(
-  (ref) => JobNotifier(
-    ref.watch(
-      jobRepoProvider,
-    ),
-  ),
+  (ref) => JobNotifier(ref.watch(jobRepoProvider)),
 );
 
 final fetchJobs = FutureProvider(

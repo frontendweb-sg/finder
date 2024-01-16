@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/constants/images.dart';
 
 Widget noData() {
-  return const Center(
-    child: Text("No data"),
-  );
+  return Center(child: Image.asset(AppImage.imgNoRecordFound));
 }

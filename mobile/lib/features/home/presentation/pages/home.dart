@@ -20,11 +20,12 @@ class _HomeState extends State<Home> {
         title: const Text('Finder'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (builder) => const CreateJobScreen()));
-              },
-              icon: const Icon(Icons.add))
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (builder) => const CreateJobScreen()));
+            },
+            icon: const Icon(Icons.add),
+          )
         ],
       ),
       body: const JobScreen(),

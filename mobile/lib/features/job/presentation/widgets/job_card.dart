@@ -11,9 +11,32 @@ Widget jobCard(
   return Dismissible(
     key: ValueKey(entity.id),
     direction: DismissDirection.endToStart,
-    onDismissed: (DismissDirection direction) => onDelete(entity.id!),
+    confirmDismiss: (direction) {
+      return showDialog(
+        context: context,
+        builder: (builder) => AlertDialog(
+          title: const Text("Are you sure?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text("Cancel"),
+            ),
+            const SizedBox(
+              width: 15.0,
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text("Delete"),
+            )
+          ],
+        ),
+      );
+    },
+    onDismissed: (DismissDirection direction) {
+      onDelete(entity.id!);
+    },
     background: Container(
-      alignment: Alignment.centerLeft,
+      alignment: Alignment.centerRight,
       color: Colors.red,
       child: const Icon(
         Icons.delete,
