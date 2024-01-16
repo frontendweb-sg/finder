@@ -8,35 +8,28 @@ import { connectDb } from './db/db.js';
 import { readFile } from 'node:fs/promises';
 import { resolvers } from './resolvers.js'
 import { errorHandler } from './middleware/error-handler.js';
-import { userRoute } from './routes/user.js';
+import { authRoute } from './routes/auth.js';
 
-// app
-
-const app = express();
-const PORT = 9000; //process.env.PORT;
-app.use(cors(), express.json());
 
 // graphql schema
 const fileUrl = new URL("./schema.graphql", import.meta.url);
 const typeDefs = await readFile(fileUrl, "utf8");
 
-// auth
-app.use("/api/auth", userRoute);
 
+// app
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-// apollo server
-const server = new ApolloServer({ typeDefs, resolvers });
-await server.start();
-app.use('/graphql', apolloMiddleware(server));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"))
+app.use(cors());
 
+app.use("/api/auth", authRoute);
 
-
-// error handler
 app.use(errorHandler);
-
 // listen
 app.listen(PORT, async () => {
     await connectDb();
-    console.log(`Server is running on ${PORT}`);
-});
-
+    console.log('server is running on port ' + PORT);
+})

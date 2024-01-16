@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { Password } from '../utils/password';
+import { Password } from '../utils/password.js';
 
 export const USER_TABLE = "USER";
 

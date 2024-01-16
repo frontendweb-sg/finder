@@ -1,5 +1,11 @@
+import { config } from 'dotenv';
+config({ path: `.env.${process.env.NODE_ENV}` });
 import mongoose from 'mongoose';
-console.log(process.env.NODE_ENV);
+
+/**
+ * Database connection handler
+ */
+
 const connectDb = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URL);
