@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import { Password } from '../utils/password.js';
+import { Role } from '../utils/role.js';
 
-export const USER_TABLE = "USER";
+export const USER_TABLE = "user";
 
 const schema = new Schema({
     name: { type: String, required: true },
@@ -10,9 +11,8 @@ const schema = new Schema({
     emailVerified: { type: Boolean, default: false },
     accessToken: { type: String, default: "" },
     active: { type: Boolean, default: true },
-    role: { type: String, default: "user", enum: ["user", "company", "admin"] },
-    mobile: { type: String, required: true, unique: true },
-    jobs: { type: [Schema.ObjectId], default: [] }
+    role: { type: String, default: Role.user, enum: Role },
+    mobile: { type: String, required: true, unique: true }
 }, {
     toJSON: {
         transform(doc, ret) {
@@ -33,3 +33,17 @@ schema.pre("save", function cb(done) {
 });
 
 export const User = mongoose.model(USER_TABLE, schema);
+
+
+
+/**
+ * 
+ * Company:
+ * cname, email, password, mobile, address, state, city, pincode, establishment year
+ * 
+ * User:
+ * name, email, password, mobile, address, state, city, pincode,
+ * 
+ * profile:
+ * experience, education, salary, current company, skills,
+ */

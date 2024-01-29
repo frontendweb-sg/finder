@@ -21,8 +21,11 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) => const CreateJobScreen()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (builder) => const CreateJobScreen(),
+                ),
+              );
             },
             icon: const Icon(Icons.add),
           )

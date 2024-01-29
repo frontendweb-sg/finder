@@ -1,41 +1,99 @@
-type Query{
+type Query {
     job: Job
     jobs: [Job!]
     company: Company
     companies: [Company!]
+    skills: [Skill!]
+    designations: [Designation!]
 }
 
-type Mutation{
-    """Enter job to create new job"""
-    createJob(job:inputJob):Job
-    """Pass id and job object to update the job"""
-    updateJob(jobId:ID!,job:inputJob):Job
-    """Delete job by providing job id"""
-    deleteJob(jobId:ID):Job
+type Mutation {
+    # Add, Update and Delete skill
+    """ Enter skill to create new skill """
+    createSkill(skill: InputSkill):Skill
+    """ Enter skill to update existing skill """
+    updateSkill(skill: UpdateSkill):Skill
+    """ Enter id to delete skill """
+    deleteSkill(skillId:ID!):Skill
 
-    """Create new company"""
-    createCompany(company:inputCompany):Company
-    updateCompany(companyId:ID!,company:inputCompany):Company
+    # designation mutaiton
+    """ Create new designation """
+    createDesignation(designation: InputDesignation):Designation
+    """ Update existing designation """
+    updateDesignation(designation: UpdateDesignation):Designation
+    """ Delete designation by id """
+    deleteDesignation(designationId:ID!):Designation
+
+    # company mutation
+     """ Create new company """
+    createCompany(company:InputCompany):Company
+    updateCompany(company:UpdateCompany):Company
     deleteCompany(companyId:ID!):Company
+
+
+     """Enter job to create new job"""
+    createJob(job:InputJob):Job
+    """Pass id and job object to update the job"""
+    updateJob(job:UpdateJob):Job
+    """Delete job by providing job id"""
+    deleteJob(jobId:ID!):Job
+
+   
 }
 
 
-# jobs 
+# skill type
+type Skill{
+    """ Skill id """
+    id: ID!
+    """ Skill name """
+    title: String
+    """ Skill slug name """
+    slug: String
+    active: Boolean
+    createdAt: String
+}
+
+# designation tyupe
+type Designation{
+    """ Skill id """
+    id: ID!
+    """ Designation name """
+    title: String
+    """ Designation slug name """
+    slug: String
+    """ Designation active """
+    active: Boolean
+    createdAt: String 
+} 
+
+# jobs type
 type Job{
+    """ Company id """
+    company: String!
     """Uniqu id"""
     id: ID!
     """Job title here"""
     title: String!
     """Job description here"""
     description: String
+    """Job required experience"""
+    experience: Int
+    """Job required skills"""
+    skills: [String]
+    """Job location"""
+    location: String
+    """Job type fulltime, parttime, contract"""
+    jobType: String
+    """Job position, no of opening"""
+    position: Int
+    """Job closed"""
+    isClosed: Boolean
     """Job creaation date"""    
     createdAt: String
     """Job activation"""
     active: Boolean
-    """Company """
-    company: Company
 }
-
 
 # companies 
 type Company {
@@ -43,8 +101,18 @@ type Company {
     id: ID!
     """Company name"""
     name: String!
+    """Company name can not be duplicate slug"""
+    slug: String
+    """Company logo"""
+    avatar: String
     """Company description"""
     description: String
+    """Company rating"""
+    rating: Float
+    """Company website"""
+    website: String
+    """Company address"""
+    address: String
     """Company activation"""
     active: Boolean
     """Company created date"""
@@ -54,22 +122,88 @@ type Company {
 }
 
 
-input inputJob{
+# Skill input
+input InputSkill {
+    title: String!
+}
+input UpdateSkill {
+    id: ID!
+    title: String!
+}
+
+# Designation input
+input InputDesignation {
+    title: String!
+}
+
+input UpdateDesignation{
+    id: ID!
+    title: String!
+}
+
+# Input job
+input InputJob{
+    """Enter company id"""
+    company: ID!
     """Enter job title"""
     title: String!
     """Enter job description"""
     description: String
-    """Enter creaation date"""
-    createdAt: String
-    """Enter company id"""
-    company: ID
+    """Job required experience"""
+    experience: Int
+    """Job required skills"""
+    skills: [String]
+    """Job location"""
+    location: String
+    """Job type fulltime, parttime, contract"""
+    jobType: String
+        """Job position, no of opening"""
+    position: Int
+    """Job closed"""
+    isClosed: Boolean
+}
+
+input UpdateJob{
+    """Job id required for update job"""
+   id:ID!
+   """Enter company id"""
+    company: ID!
+    """Enter job title"""
+    title: String!
+    """Enter job description"""
+    description: String
+    """Job required experience"""
+    experience: Int
+    """Job required skills"""
+    skills: [String]
+    """Job location"""
+    location: String
+    """Job type fulltime, parttime, contract"""
+    jobType: String
+        """Job position, no of opening"""
+    position: Int
+    """Job closed"""
+    isClosed: Boolean
 }
  
-input inputCompany{
-    """Enter the company name"""
+ # Input company
+input InputCompany{
     name: String!
-    """Enter company description"""
+    slug: String
+    avatar: String
     description: String
-    """company creaation date"""
-    createdAt: String
+    rating: Float
+    website: String
+    address: String
+}
+
+input UpdateCompany{
+    id: ID!
+    name: String!
+    slug: String
+    avatar: String
+    description: String
+    rating: Int
+    website: String
+    address: String
 }

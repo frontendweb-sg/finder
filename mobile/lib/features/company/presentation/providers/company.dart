@@ -5,6 +5,9 @@ import 'package:mobile/features/company/presentation/providers/states/company_st
 import 'package:mobile/shared/providers/graphql.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+// declare copany part file
+part 'company.g.dart';
+
 ///
 /// data source servie provider
 @riverpod
@@ -14,21 +17,6 @@ CompanyDatasourceService companyDatasourceService(
 
 ///
 /// company repository provider
-final companyRepoProvider = Provider<CompanyRepo>(
-  (ref) => CompanyRepoImp(
-    ref.watch(
-      (companyDatasourceProvider),
-    ),
-  ),
-);
-
-///
-/// company notifier
-
 @riverpod
-class CompanyNotifier extends Notifier<CompanyState> {
-  @override
-  CompanyState build() {
-    return CompanyState.loading();
-  }
-}
+CompanyRepo companyRepo(CompanyRepoRef ref) =>
+    CompanyRepoImp(ref.watch(companyDatasourceServiceProvider));
