@@ -4,7 +4,7 @@ import 'package:mobile/core/errors/failure.dart';
 import 'package:mobile/features/job/business/entities/job_entity.dart';
 import 'package:mobile/features/job/business/repos/job_repo.dart';
 import 'package:mobile/features/job/data/datasource/job_remote_datasource.dart';
-import 'package:mobile/core/typedef/typedef.dart';
+import 'package:mobile/core/utils/typedef.dart';
 
 class JobRepoImp extends JobRepo {
   final JobRemoteDatasource _jobRemoteDatasource;

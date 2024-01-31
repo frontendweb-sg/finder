@@ -1,6 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mobile/features/job/business/entities/job_entity.dart';
-import 'package:mobile/core/typedef/typedef.dart';
+import 'package:mobile/core/utils/typedef.dart';
 
 ///
 /// Job abstract class

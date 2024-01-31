@@ -3,13 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-
-import 'package:dartz/dartz.dart' as _i2;
-import 'package:graphql_flutter/graphql_flutter.dart' as _i7;
-import 'package:mobile/core/errors/failure.dart' as _i5;
-import 'package:mobile/features/job/business/entities/job_entity.dart' as _i6;
-import 'package:mobile/features/job/business/repos/job_repo.dart' as _i3;
+import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
+import 'package:mobile/features/job/business/entities/job_entity.dart' as _i4;
+import 'package:mobile/features/job/business/repos/job_repo.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -25,119 +21,51 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [JobRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJobRepo extends _i1.Mock implements _i3.JobRepo {
+class MockJobRepo extends _i1.Mock implements _i2.JobRepo {
   MockJobRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.JobEntity>>> getJobs(
-          _i7.QueryOptions<Object?>? options) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getJobs,
-          [options],
-        ),
-        returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, List<_i6.JobEntity>>>.value(
-                _FakeEither_0<_i5.Failure, List<_i6.JobEntity>>(
-          this,
-          Invocation.method(
-            #getJobs,
-            [options],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.JobEntity>>>);
+  dynamic getJobs(_i3.QueryOptions<Object?>? options) =>
+      super.noSuchMethod(Invocation.method(
+        #getJobs,
+        [options],
+      ));
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> getJob(String? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getJob,
-          [id],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i6.JobEntity>(
-          this,
-          Invocation.method(
-            #getJob,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
+  dynamic getJob(String? id) => super.noSuchMethod(Invocation.method(
+        #getJob,
+        [id],
+      ));
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> createJob(
-          _i7.MutationOptions<Object?>? options) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #createJob,
-          [options],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i6.JobEntity>(
-          this,
-          Invocation.method(
-            #createJob,
-            [options],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
+  dynamic createJob(_i3.MutationOptions<Object?>? options) =>
+      super.noSuchMethod(Invocation.method(
+        #createJob,
+        [options],
+      ));
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> updateJob(
+  dynamic updateJob(
     String? id,
-    _i6.JobEntity? job,
+    _i4.JobEntity? job,
   ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #updateJob,
-          [
-            id,
-            job,
-          ],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i6.JobEntity>(
-          this,
-          Invocation.method(
-            #updateJob,
-            [
-              id,
-              job,
-            ],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
+      super.noSuchMethod(Invocation.method(
+        #updateJob,
+        [
+          id,
+          job,
+        ],
+      ));
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>> deleteJob(
-          _i7.MutationOptions<Object?>? options) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteJob,
-          [options],
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>.value(
-            _FakeEither_0<_i5.Failure, _i6.JobEntity>(
-          this,
-          Invocation.method(
-            #deleteJob,
-            [options],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.JobEntity>>);
+  dynamic deleteJob(_i3.MutationOptions<Object?>? options) =>
+      super.noSuchMethod(Invocation.method(
+        #deleteJob,
+        [options],
+      ));
 }

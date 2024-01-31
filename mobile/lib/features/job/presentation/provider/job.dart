@@ -22,7 +22,7 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
       state = const AsyncLoading();
 
       // fetch jobs
-      final response = await GetJobsUseCase(_jobRepo).call(params: options);
+      final response = await GetJobsUseCase(_jobRepo).call(options);
 
       // store response
       state = response.fold(
@@ -43,7 +43,7 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
   Future<void> addJob(MutationOptions option) async {
     try {
       // state = const AsyncLoading();
-      final response = await CreateJobUseCase(_jobRepo).call(params: option);
+      final response = await CreateJobUseCase(_jobRepo).call(option);
       state = response.fold(
         (l) => AsyncValue.error(l, StackTrace.current),
         (r) {
@@ -64,7 +64,7 @@ class JobNotifier extends StateNotifier<AsyncValue<List<JobEntity>?>> {
   Future<void> deleteJob(MutationOptions option) async {
     try {
       // state = const AsyncLoading();
-      final response = await DeleteJobUseCase(_jobRepo).call(params: option);
+      final response = await DeleteJobUseCase(_jobRepo).call(option);
       state = response.fold(
         (l) => AsyncValue.error(l, StackTrace.current),
         (r) {
